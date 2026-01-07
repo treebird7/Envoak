@@ -5,7 +5,7 @@ import { z } from "zod";
 import fs from "fs/promises";
 import path from "path";
 import * as envManager from "../lib/env-manager.js";
-import { runCheck } from "../commands/check.js";
+
 
 /**
  * Validate that a path is within the current working directory.
@@ -29,6 +29,8 @@ export class EnvaultMcpServer {
             version: "0.1.0",
         });
 
+        console.error("Envault MCP Server initializing...");
+
         this.setupTools();
         this.setupResources();
     }
@@ -39,6 +41,7 @@ export class EnvaultMcpServer {
             "audit_directory",
             { path: z.string().default(".") },
             async ({ path: dirPath }) => {
+                console.error(`Executing tool: audit_directory path=${dirPath}`);
                 const rootDir = path.resolve(dirPath);
                 const results = [];
 
@@ -93,6 +96,7 @@ export class EnvaultMcpServer {
                 key: z.string().describe("ENVAULT_KEY (64 chars hex)")
             },
             async ({ filePath, key }) => {
+                console.error(`Executing tool: encrypt_file filePath=${filePath}`);
                 try {
                     const fullPath = validatePathWithinCwd(filePath);
                     const content = await fs.readFile(fullPath, 'utf-8');
@@ -117,6 +121,7 @@ export class EnvaultMcpServer {
                 outputPath: z.string().optional()
             },
             async ({ filePath, key, outputPath }) => {
+                console.error(`Executing tool: decrypt_file filePath=${filePath}`);
                 try {
                     const fullPath = validatePathWithinCwd(filePath);
                     const content = await fs.readFile(fullPath, 'utf-8');
@@ -140,6 +145,7 @@ export class EnvaultMcpServer {
             "generate_key",
             {},
             async () => {
+                console.error("Executing tool: generate_key");
                 const key = envManager.generateKey();
                 return {
                     content: [{ type: "text", text: key }]
@@ -154,7 +160,9 @@ export class EnvaultMcpServer {
     }
 
     public async start() {
+        console.error("Envault MCP Server starting...");
         const transport = new StdioServerTransport();
         await this.server.connect(transport);
+        console.error("Envault MCP Server connected to transport.");
     }
 }
