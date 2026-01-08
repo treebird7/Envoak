@@ -47,6 +47,34 @@ export const scanCommand = (program: Command) => {
 
             console.log(chalk.blue(`Found ${targets.length} targets: ${targets.join(', ')}\n`));
 
+            // Try to load root .env manually to ensure we have the latest keys
+            // (Envault binary loads dotenv at startup, but explicit loading is safer for dynamic changes)
+            let globalEnvKey = process.env.ENVAULT_KEY;
+            try {
+                const rootEnvPath = path.join(rootDir, '.env');
+                const rootEnvContent = await fs.readFile(rootEnvPath, 'utf-8');
+                // Simple parse for ENVAULT_KEY if not already in process.env
+                if (!globalEnvKey) {
+                    const match = rootEnvContent.match(/^ENVAULT_KEY=(.+)$/m);
+                    if (match) {
+                        globalEnvKey = match[1].trim();
+                        // Remove quotes if present
+                        if ((globalEnvKey.startsWith('"') && globalEnvKey.endsWith('"')) ||
+                            (globalEnvKey.startsWith("'") && globalEnvKey.endsWith("'"))) {
+                            globalEnvKey = globalEnvKey.slice(1, -1);
+                        }
+                    }
+                }
+            } catch {
+                // No root .env or read error
+            }
+
+            if (globalEnvKey) {
+                console.log(chalk.blue(`ℹ️  Using global ENVAULT_KEY from ${rootDir}\n`));
+            } else {
+                console.log(chalk.yellow(`ℹ️  No global ENVAULT_KEY found in ${rootDir}. Expecting local keys in subdirectories.\n`));
+            }
+
             let failures = 0;
 
             for (const dir of targets) {
@@ -55,13 +83,18 @@ export const scanCommand = (program: Command) => {
                 const fullPath = path.join(rootDir, dir);
 
                 await new Promise<void>((resolve) => {
+                    const envVars: NodeJS.ProcessEnv = { ...process.env, FORCE_COLOR: '1' };
+                    if (globalEnvKey) {
+                        envVars.ENVAULT_KEY = globalEnvKey;
+                    }
+
                     const child = spawn(
                         process.execPath, // node
                         [process.argv[1], subcommand, ...args], // envault <cmd> [args]
                         {
                             cwd: fullPath,
                             stdio: 'inherit',
-                            env: { ...process.env, FORCE_COLOR: '1' } // Force color for child output
+                            env: envVars
                         }
                     );
 
