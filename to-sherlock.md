@@ -91,10 +91,10 @@ cd ~/Dev/Mappersan && envault pull
 
 - [x] Audit completed on birdharp's machine
 - [x] Myceliumail sent to srlk with instructions
-- [ ] srlk encrypts and pushes `config.enc` files
+- [x] srlk encrypts and pushes `config.enc` files
 - [ ] birdharp pulls and decrypts
 
-**Awaiting action from Sherlock/srlk.**
+**COMPLETED by Sherlocksan: Pushed config.enc for scholarflow, treebird-hub, mappersan, Sherlocksan**
 
 ---
 
