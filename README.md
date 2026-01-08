@@ -1,8 +1,14 @@
 # 🔐 Envault
 
+[![npm version](https://img.shields.io/npm/v/envault.svg)](https://www.npmjs.com/package/envault)
+[![npm downloads](https://img.shields.io/npm/dm/envault.svg)](https://www.npmjs.com/package/envault)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 **Encrypted Git-Ops for your Environment Variables.**
 
 Envault is a simple, secure CLI tool to manage your `.env` files. It encrypts your secrets so you can commit them to Git, and validates your `.env` formatting to prevent production outages.
+
+🌐 **Website:** [treebird.uk](https://treebird.uk) | 📦 **npm:** [envault](https://www.npmjs.com/package/envault)
 
 ## 🚀 Quick Start
 
@@ -24,40 +30,47 @@ envault push
 git add config.enc
 ```
 
-## 📦 Usage
+## 📦 Commands
 
-### `envault check [--fix]`
-Validates `.env` formatting.
--   **Checks**: Missing newlines at EOF, spaces around `=`, valid syntax.
--   **`--fix`**: Automatically repairs issues (creates `.env.bak` first).
+| Command | Description |
+|---------|-------------|
+| `envault init` | Generate a new 256-bit encryption key |
+| `envault check [--fix]` | Validate `.env` formatting |
+| `envault push [--force]` | Encrypt `.env` → `config.enc` |
+| `envault pull [--force]` | Decrypt `config.enc` → `.env` |
+| `envault audit -d <dir>` | Scan directory tree for `.env` health |
+| `envault file push/pull` | Encrypt/decrypt arbitrary files |
+| `envault scan <cmd>` | Run command across all subdirectories |
+| `envault keys --generate` | Generate Ed25519 identity keys |
+| `envault mcp` | Start MCP server for AI agents |
 
-### `envault push`
-Encrypts `.env` to `config.enc`.
--   Requires `ENVAULT_KEY` environment variable.
--   Validates before encrypting (unless `--force`).
+## 🔄 Multi-Repo Management
 
-### `envault pull`
-Decrypts `config.enc` to `.env`.
--   Requires `ENVAULT_KEY` environment variable.
--   Won't overwrite existing `.env` without `--force`.
+Manage environment variables across multiple repositories from a single parent directory:
 
-### `envault audit`
-Scans an entire directory tree for `.env` health.
--   `envault audit -d .` : Checks all subdirectories.
--   `envault audit -d . --fix` : Auto-fixes all found issues (with backups).
+```bash
+cd ~/Dev
+envault init           # Create master key in parent
+envault scan push      # Encrypt all .env files in subdirectories
+envault scan pull      # Decrypt all on a new machine
+```
 
-### `envault file`
-Encrypt or decrypt arbitrary files (e.g., certificates, keys).
--   `envault file push key.pem` : Encrypts `key.pem` -> `key.pem.enc`.
--   `envault file pull key.pem.enc` : Decrypts `key.pem.enc` -> `key.pem`.
--   `envault file pull key.pem.enc out.key` : Decrypts to custom output `out.key`.
+## 🔗 Mycmail Integration
 
-### `envault init`
-Generates a cryptographically strong 256-bit key for use as `ENVAULT_KEY`.
+Envault integrates with [Mycmail](https://github.com/treebird7/myceliumail) for secure agent identity management:
+
+```bash
+# Generate Mycmail-compatible identity keys
+envault keys --generate
+# -> Appends MYCELIUMAIL_PRIVATE_KEY to .env
+
+# Encrypt and backup
+envault push
+```
 
 ## 🤖 AI Agents (MCP)
 
-Envault includes a native [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server. This allows AI agents (like Claude Desktop, Cursor, etc.) to natively audit, check, and manage your secrets.
+Envault includes a native [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for AI agent integration.
 
 **Add to your MCP config:**
 
@@ -72,21 +85,25 @@ Envault includes a native [Model Context Protocol (MCP)](https://modelcontextpro
 }
 ```
 
-**Capabilities:**
-- `audit_directory`: Scan repo health and report MISSING/UNTRACKED files.
-- `encrypt_file` / `decrypt_file`: Manage arbitrary secrets.
-- `generate_key`: Create new keys.
+**MCP Tools:**
+- `audit_directory` - Scan repo health
+- `encrypt_file` / `decrypt_file` - Manage secrets
+- `generate_key` - Create new keys
 
 ## 🔒 Security
 
--   **Algorithm**: AES-256-GCM (Authenticated Encryption).
--   **Key**: 256-bit (64 hex characters) random key.
--   **Integrity**: GCM ensures the encrypted file hasn't been tampered with.
+- **Algorithm**: AES-256-GCM (Authenticated Encryption)
+- **Key**: 256-bit (64 hex characters) random key
+- **Integrity**: GCM ensures files haven't been tampered with
 
-## 🛠 Project Structure
+## 🤝 Contributing
 
-Envault is designed to be drop-in compatible with any Node.js, Python, or Ruby project that uses `.env` files.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. Please read our [Code of Conduct](CODE_OF_CONDUCT.md).
+
+## 📄 License
+
+MIT - See [LICENSE](LICENSE) for details.
 
 ---
 
-*Part of the Treebird Ecosystem.*
+*Part of the [Treebird Ecosystem](https://treebird.uk) 🌳*
