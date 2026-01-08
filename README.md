@@ -1,31 +1,35 @@
-# 🔐 Envault
+<p align="center">
+  <img src="assets/glyph_envoak.png" alt="envoak" width="180" />
+</p>
 
-[![npm version](https://img.shields.io/npm/v/envault.svg)](https://www.npmjs.com/package/envault)
-[![npm downloads](https://img.shields.io/npm/dm/envault.svg)](https://www.npmjs.com/package/envault)
+# 🌳 envoak
+
+[![npm version](https://img.shields.io/npm/v/envoak.svg)](https://www.npmjs.com/package/envoak)
+[![npm downloads](https://img.shields.io/npm/dm/envoak.svg)](https://www.npmjs.com/package/envoak)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Encrypted Git-Ops for your Environment Variables.**
 
-Envault is a simple, secure CLI tool to manage your `.env` files. It encrypts your secrets so you can commit them to Git, and validates your `.env` formatting to prevent production outages.
+envoak is a simple, secure CLI tool to manage your `.env` files. It encrypts your secrets so you can commit them to Git, and validates your `.env` formatting to prevent production outages.
 
-🌐 **Website:** [treebird.uk](https://treebird.uk) | 📦 **npm:** [envault](https://www.npmjs.com/package/envault)
+🌐 **Website:** [treebird.uk/envoak](https://treebird.uk/envoak) | 📦 **npm:** [envoak](https://www.npmjs.com/package/envoak)
 
 ## 🚀 Quick Start
 
 ```bash
 # 1. Install (Global)
-npm install -g envault
+npm install -g envoak
 
 # 2. Initialize in your repo
-envault init
-# -> Generates a new ENVAULT_KEY. Save this!
+envoak init
+# -> Generates a new ENVOAK_KEY. Save this!
 
 # 3. Validate your .env
-envault check
+envoak check
 # -> Detects missing newlines, spacing issues, etc.
 
 # 4. Encrypt & Commit
-envault push
+envoak push
 # -> Encrypts .env -> config.enc (Safe to commit)
 git add config.enc
 ```
@@ -34,15 +38,15 @@ git add config.enc
 
 | Command | Description |
 |---------|-------------|
-| `envault init` | Generate a new 256-bit encryption key |
-| `envault check [--fix]` | Validate `.env` formatting |
-| `envault push [--force]` | Encrypt `.env` → `config.enc` |
-| `envault pull [--force]` | Decrypt `config.enc` → `.env` |
-| `envault audit -d <dir>` | Scan directory tree for `.env` health |
-| `envault file push/pull` | Encrypt/decrypt arbitrary files |
-| `envault scan <cmd>` | Run command across all subdirectories |
-| `envault keys --generate` | Generate Ed25519 identity keys |
-| `envault mcp` | Start MCP server for AI agents |
+| `envoak init` | Generate a new 256-bit encryption key |
+| `envoak check [--fix]` | Validate `.env` formatting |
+| `envoak push [--force]` | Encrypt `.env` → `config.enc` |
+| `envoak pull [--force]` | Decrypt `config.enc` → `.env` |
+| `envoak audit -d <dir>` | Scan directory tree for `.env` health |
+| `envoak file push/pull` | Encrypt/decrypt arbitrary files |
+| `envoak scan <cmd>` | Run command across all subdirectories |
+| `envoak keys --generate` | Generate Ed25519 identity keys |
+| `envoak mcp` | Start MCP server for AI agents |
 
 ## 🔄 Multi-Repo Management
 
@@ -50,35 +54,35 @@ Manage environment variables across multiple repositories from a single parent d
 
 ```bash
 cd ~/Dev
-envault init           # Create master key in parent
-envault scan push      # Encrypt all .env files in subdirectories
-envault scan pull      # Decrypt all on a new machine
+envoak init           # Create master key in parent
+envoak scan push      # Encrypt all .env files in subdirectories
+envoak scan pull      # Decrypt all on a new machine
 ```
 
 ## 🔗 Mycmail Integration
 
-Envault integrates with [Mycmail](https://github.com/treebird7/myceliumail) for secure agent identity management:
+envoak integrates with [Mycmail](https://github.com/treebird7/myceliumail) for secure agent identity management:
 
 ```bash
 # Generate Mycmail-compatible identity keys
-envault keys --generate
+envoak keys --generate
 # -> Appends MYCELIUMAIL_PRIVATE_KEY to .env
 
 # Encrypt and backup
-envault push
+envoak push
 ```
 
 ## 🤖 AI Agents (MCP)
 
-Envault includes a native [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for AI agent integration.
+envoak includes a native [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server for AI agent integration.
 
 **Add to your MCP config:**
 
 ```json
 {
   "mcpServers": {
-    "envault": {
-      "command": "envault",
+    "envoak": {
+      "command": "envoak",
       "args": ["mcp"]
     }
   }

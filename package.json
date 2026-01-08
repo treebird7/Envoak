@@ -1,14 +1,14 @@
 {
-    "name": "envault",
+    "name": "envoak",
     "version": "0.1.0",
     "description": "Encrypted Git-Ops for your environment variables. Secure, simple, and git-friendly.",
     "type": "module",
     "bin": {
-        "envault": "./dist/bin/envault.js"
+        "envoak": "./dist/bin/envoak.js"
     },
     "scripts": {
         "build": "tsc",
-        "dev": "tsx src/bin/envault.ts",
+        "dev": "tsx src/bin/envoak.ts",
         "test": "vitest run",
         "prepublishOnly": "npm run build"
     },
@@ -29,11 +29,11 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/treebird7/Envault"
+        "url": "https://github.com/treebird7/envoak"
     },
-    "homepage": "https://treebird.uk",
+    "homepage": "https://treebird.uk/envoak.html",
     "bugs": {
-        "url": "https://github.com/treebird7/Envault/issues"
+        "url": "https://github.com/treebird7/envoak/issues"
     },
     "dependencies": {
         "@modelcontextprotocol/sdk": "^1.25.1",
