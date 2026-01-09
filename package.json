@@ -1,6 +1,6 @@
 {
     "name": "envoak",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "description": "Encrypted Git-Ops for your environment variables. Secure, simple, and git-friendly.",
     "type": "module",
     "bin": {
