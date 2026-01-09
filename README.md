@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/treebird7/envoak/main/assets/glyph_envoak.png" alt="envoak" width="180" />
+  <img src="https://raw.githubusercontent.com/treebird7/Envault/main/assets/glyph_envoak.png" alt="envoak" width="180" />
 </p>
 
 # 🌳 envoak
