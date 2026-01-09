@@ -29,11 +29,11 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/treebird7/envoak"
+        "url": "https://github.com/treebird7/Envault"
     },
     "homepage": "https://treebird.uk/envoak.html",
     "bugs": {
-        "url": "https://github.com/treebird7/envoak/issues"
+        "url": "https://github.com/treebird7/Envault/issues"
     },
     "dependencies": {
         "@modelcontextprotocol/sdk": "^1.25.1",
