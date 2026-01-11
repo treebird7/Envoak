@@ -1,71 +1,72 @@
-# Contributing to Envault
+# Contributing to envoak
 
-Thank you for your interest in contributing to Envault! 🔐
+Thanks for your interest in contributing! 🔐
 
-## Getting Started
+## Overview
 
-1. **Fork** the repository on GitHub
-2. **Clone** your fork locally:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/Envault.git
-   cd Envault
-   ```
-3. **Install** dependencies:
-   ```bash
-   npm install
-   ```
-4. **Build** the project:
-   ```bash
-   npm run build
-   ```
+envoak is a secure secrets management tool that provides encryption for environment files with optional cloud backup via Myceliumail.
 
-## Development Workflow
+## Development Setup
 
-### Making Changes
+```bash
+git clone https://github.com/treebird7/envoak.git
+cd envoak
 
-1. Create a new branch for your feature:
-   ```bash
-   git checkout -b feat/your-feature-name
-   ```
-2. Make your changes in `src/`
-3. Build and test:
-   ```bash
-   npm run build
-   node dist/bin/envault.js --help
-   ```
-4. Commit with a descriptive message:
-   ```bash
-   git commit -m "feat: add new feature description"
-   ```
+npm install
+npm run build
+```
 
-### Commit Message Format
+## Testing Locally
 
-We follow [Conventional Commits](https://www.conventionalcommits.org/):
+```bash
+# Generate a key
+node dist/bin/envoak.js keygen
 
-- `feat:` - New features
-- `fix:` - Bug fixes
-- `docs:` - Documentation changes
-- `refactor:` - Code refactoring
-- `test:` - Adding tests
-- `chore:` - Maintenance tasks
+# Encrypt a file
+ENVAULT_KEY=<your-key> node dist/bin/envoak.js encrypt .env
 
-## Submitting a Pull Request
+# Decrypt a file
+ENVAULT_KEY=<your-key> node dist/bin/envoak.js decrypt .env.enc
+```
 
-1. Push your branch to GitHub
-2. Open a Pull Request against `main`
-3. Fill out the PR template
-4. Wait for review and address feedback
+## Environment Variables
+
+```
+ENVAULT_KEY=<64-character-hex-key>
+```
+
+## Pull Requests
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Run `npm run build` to ensure it compiles
+5. Commit your changes (`git commit -m 'Add amazing feature'`)
+6. Push to your fork (`git push origin feature/amazing-feature`)
+7. Open a Pull Request
 
 ## Code Style
 
-- Use TypeScript for all new code
-- Follow existing patterns in the codebase
-- Keep functions focused and well-documented
+- TypeScript with strict mode
+- Use async/await over callbacks
+- Keep crypto operations in dedicated modules
+- Never log keys or decrypted content
 
-## Questions?
+## Security
 
-Open an [issue](https://github.com/treebird7/Envault/issues) or reach out via the project discussions.
+- Use AES-256-GCM for encryption
+- Keys are derived from provided ENVAULT_KEY
+- Report security issues privately to security@treebird.uk
+
+## Issues
+
+Found a bug? Have a feature request? Please open an issue on GitHub:
+https://github.com/treebird7/envoak/issues
+
+## License
+
+By contributing, you agree that your contributions will be licensed under the MIT License.
 
 ---
 
-*Maintained by [Treebird](https://treebird.uk)*
+*"Secrets stay secret."* 🔐🌳
