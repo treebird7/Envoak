@@ -14,6 +14,7 @@ import { fileCommand } from '../commands/file.js';
 import { mcpCommand } from '../commands/mcp.js';
 import { keysCommand } from '../commands/keys.js';
 import { scanCommand } from '../commands/scan.js';
+import { machineCommand } from '../commands/machine.js';
 
 const program = new Command();
 
@@ -32,5 +33,6 @@ fileCommand(program);
 mcpCommand(program);
 keysCommand(program);
 scanCommand(program);
+machineCommand(program);
 
 program.parse();
