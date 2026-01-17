@@ -10,10 +10,10 @@ export const initCommand = (program: Command) => {
         .action(async () => {
             const key = envManager.generateKey();
 
-            console.log(chalk.green('\n🔑 Generated new ENVAULT_KEY'));
+            console.log(chalk.green('\n🔑 Generated new ENVOAK_KEY'));
             console.log(chalk.bgBlack.white.bold(` ${key} `));
             console.log(chalk.yellow('\n👉 Add this to your local .env or secret manager!'));
-            console.log(chalk.gray('ENVAULT_KEY=' + key));
+            console.log(chalk.gray('ENVOAK_KEY=' + key));
 
             // Check gitignore
             try {

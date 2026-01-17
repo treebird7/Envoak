@@ -22,12 +22,12 @@ export const pushCommand = (program: Command) => {
             }
 
             // 2. Get Key
-            let key = process.env.ENVAULT_KEY;
+            let key = process.env.ENVOAK_KEY || process.env.ENVOAK_KEY || process.env.ENVAULT_KEY;
 
             if (!key) {
-                console.error(chalk.red('❌ ENVAULT_KEY not found.'));
+                console.error(chalk.red('❌ ENVOAK_KEY not found.'));
                 console.error(chalk.yellow('Run `envault init` to generate a key,'));
-                console.error('or export ENVAULT_KEY=<key> manually.');
+                console.error('or export ENVOAK_KEY=<key> manually.');
                 process.exit(1);
             }
 

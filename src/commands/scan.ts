@@ -49,13 +49,13 @@ export const scanCommand = (program: Command) => {
 
             // Try to load root .env manually to ensure we have the latest keys
             // (Envault binary loads dotenv at startup, but explicit loading is safer for dynamic changes)
-            let globalEnvKey = process.env.ENVAULT_KEY;
+            let globalEnvKey = process.env.ENVOAK_KEY || process.env.ENVOAK_KEY || process.env.ENVAULT_KEY;
             try {
                 const rootEnvPath = path.join(rootDir, '.env');
                 const rootEnvContent = await fs.readFile(rootEnvPath, 'utf-8');
                 // Simple parse for ENVAULT_KEY if not already in process.env
                 if (!globalEnvKey) {
-                    const match = rootEnvContent.match(/^ENVAULT_KEY=(.+)$/m);
+                    const match = rootEnvContent.match(/^ENVOAK_KEY=(.+)$/m);
                     if (match) {
                         globalEnvKey = match[1].trim();
                         // Remove quotes if present

@@ -14,10 +14,10 @@ export const pullCommand = (program: Command) => {
         .option('-o, --output <path>', 'Path to output .env file', ENV_FILE)
         .option('--force', 'Overwrite existing .env file without warning')
         .action(async (options) => {
-            const key = process.env.ENVAULT_KEY;
+            const key = process.env.ENVOAK_KEY || process.env.ENVAULT_KEY;
             if (!key) {
-                console.error(chalk.red('❌ ENVAULT_KEY environment variable is missing.'));
-                console.error('Please export ENVAULT_KEY=<your-key> and try again.');
+                console.error(chalk.red('❌ ENVOAK_KEY not found.'));
+                console.error('Please export ENVOAK_KEY=<your-key> and try again.');
                 process.exit(1);
             }
 

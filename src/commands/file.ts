@@ -11,9 +11,9 @@ export const fileCommand = (program: Command) => {
     file.command('push <path> [outputPath]')
         .description('Encrypt a file to <path>.enc')
         .action(async (filePath, outputArg) => {
-            const key = process.env.ENVAULT_KEY;
+            const key = process.env.ENVOAK_KEY || process.env.ENVAULT_KEY;
             if (!key) {
-                console.error(chalk.red('❌ ENVAULT_KEY not found.'));
+                console.error(chalk.red('❌ ENVOAK_KEY not found.'));
                 process.exit(1);
             }
 
@@ -37,9 +37,9 @@ export const fileCommand = (program: Command) => {
         .description('Decrypt a file (expects <path>.enc by default or explicit input)')
         .option('-i, --input <inputPath>', 'Input encrypted file')
         .action(async (pathArg, outputArg, options) => {
-            const key = process.env.ENVAULT_KEY;
+            const key = process.env.ENVOAK_KEY || process.env.ENVAULT_KEY;
             if (!key) {
-                console.error(chalk.red('❌ ENVAULT_KEY not found.'));
+                console.error(chalk.red('❌ ENVOAK_KEY not found.'));
                 process.exit(1);
             }
 

@@ -6,6 +6,7 @@ export interface EnvValidationResult {
     errors: string[];
     warnings: string[];
     fixedContent?: string;
+    fixed?: boolean;
 }
 
 const ALGORITHM = 'aes-256-gcm';
